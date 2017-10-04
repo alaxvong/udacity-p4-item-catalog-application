@@ -1,0 +1,45 @@
+{% extends "main.html" %}
+{% block content %}
+    {% include "header.html" %}
+
+    <div class='flash'>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li><strong> {{ message }} </strong></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <ul class="list">
+        {% for todolist in todolists %}
+            <li class="list-item">
+                <a class="list-label" href="{{ url_for('show_list', todolist_id = todolist.id) }}">
+                    <h3>{{ todolist.name }}</h3>
+                    {% if login_session.user_id == todolist.user_id %}
+                        <div class="list-edit-options">
+                            <span class="list-edit-option icon-edit"><span class="icon"></span>Edit</span>
+                        </div>
+                    {% endif %}
+                </a>
+            </li>
+        {% endfor %}
+
+        {% if login_session.user_id %}
+            <li class="list-item">
+                <a class="list-label" href="{{ url_for('new_todolist') }}">
+                    <h3>Create New List</h3>
+                    <div class="list-edit-options">
+                        <span class="list-edit-option icon-add"><span class="icon"></span>Add</span>
+                    </div>
+                </a>
+
+            </li>
+        {% endif %}
+    </ul>
+
+
+{% endblock %}

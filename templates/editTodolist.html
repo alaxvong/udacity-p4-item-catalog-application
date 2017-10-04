@@ -1,0 +1,22 @@
+{% extends "main.html" %}
+{% block content %}
+    {% include "header.html" %}
+
+    <h1 class="form-title">Rename {{ todolist.name }}?</h1>
+
+    <form action="{{ url_for('edit_todolist',todolist_id = todolist.id) }}" method="post">
+
+        <label for="name">List Name</label>
+        <input type="text" class="form-control" name="name" value="{{ todolist.name }}">
+
+        <div class="button-set">
+            <button type="submit" class="button" id="submit"><span>Save</span></button>
+
+            <a href='{{ url_for('show_todolists') }}'>
+                <button class="button delete" type="button"><span>Cancel</span></button>
+            </a>
+        </div>
+
+    </form>
+
+{% endblock %}

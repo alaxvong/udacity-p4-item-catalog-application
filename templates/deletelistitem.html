@@ -1,0 +1,20 @@
+{% extends "main.html" %}
+{% block content %}
+    {% include "header.html" %}
+
+    <h3 class="form-subtext">Delete the following list item?</h3>
+    <h1 class="form-title">{{ item.name }}</h1>
+
+    <form action="#" method='post'>
+
+        <div class="button-set">
+            <button type="submit" class="button" id="submit"><span>Delete</span></button>
+
+            <a href='{{ url_for('show_todolists') }}'>
+                <button class="button delete" type="button"><span>Cancel</span></button>
+            </a>
+        </div>
+
+    </form>
+
+{% endblock %}

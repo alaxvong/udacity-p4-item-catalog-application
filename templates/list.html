@@ -1,0 +1,120 @@
+{% extends "main.html" %}
+{% block content %}
+    {% include "header.html" %}
+
+
+    <div class="list-header">
+        {% if creator.picture %}
+        <img class="creator-profile-pic" src="{{ creator.picture }}">
+        {% else %}
+        <img class="creator-profile-pic" src="{{ url_for('static', filename='placeholder_user.png') }}">
+        {% endif %}
+        <h3 class="creator-name">{{ creator.name }}'s List</h3>
+        <h1 class="list-title">{{ todolist.name }}</h1>
+        {% if login_session.user_id == todolist.user_id %}
+            <div class="list-edit-options">
+                <a class="list-edit-option icon-edit icon-edit__rename"
+                   href="{{ url_for('edit_todolist', todolist_id = todolist.id ) }}"><span
+                        class="icon"></span>Rename</a>
+                <a class="list-edit-option icon-delete"
+                   href="{{ url_for('delete_todolist', todolist_id = todolist.id ) }}"><span class="icon"></span>Delete</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class='flash'>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <ul class="list">
+        {% if items !=[] %}
+
+            {% for i in items %}
+                {% if i.priority == 'HighPriority' %}
+                    <li class="list-item">
+                        <header class="list-label">
+                            <h3 class="priority priority-high">{{ i.name }}</h3>
+                            {% if todolist.user_id == login_session.user_id %}
+                                <div class="list-edit-options">
+                                    <a class="list-edit-option icon-edit"
+                                       href='{{ url_for('edit_list_item', todolist_id = todolist.id, list_id=i.id ) }}'><span
+                                            class="icon"></span>Edit</a>
+                                    <a class="list-edit-option icon-delete"
+                                       href='{{ url_for('delete_list_item', todolist_id = todolist.id, list_id=i.id ) }}'><span
+                                            class="icon"></span>Delete</a>
+                                </div>
+                            {% endif %}
+                        </header>
+                        <p class="list-description">{{ i.description }}</p>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% for i in items %}
+                {% if i.priority == 'MedPriority' %}
+                    <li class="list-item">
+                        <header class="list-label">
+                            <h3 class="priority priority-med">{{ i.name }}</h3>
+                            {% if todolist.user_id == login_session.user_id %}
+                                <div class="list-edit-options">
+                                    <a class="list-edit-option icon-edit"
+                                       href='{{ url_for('edit_list_item', todolist_id = todolist.id, list_id=i.id ) }}'><span
+                                            class="icon"></span>Edit</a>
+                                    <a class="list-edit-option icon-delete"
+                                       href='{{ url_for('delete_list_item', todolist_id = todolist.id, list_id=i.id ) }}'><span
+                                            class="icon"></span>Delete</a>
+                                </div>
+                            {% endif %}
+                        </header>
+                        <p class="list-description">{{ i.description }}</p>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% for i in items %}
+                {% if i.priority == 'LowPriority' %}
+                    <li class="list-item">
+                        <header class="list-label">
+                            <h3 class="priority priority-low">{{ i.name }}</h3>
+                            {% if todolist.user_id == login_session.user_id %}
+                                <div class="list-edit-options">
+                                    <a class="list-edit-option icon-edit"
+                                       href='{{ url_for('edit_list_item', todolist_id = todolist.id, list_id=i.id ) }}'><span
+                                            class="icon"></span>Edit</a>
+                                    <a class="list-edit-option icon-delete"
+                                       href='{{ url_for('delete_list_item', todolist_id = todolist.id, list_id=i.id ) }}'><span
+                                            class="icon"></span>Delete</a>
+                                </div>
+                            {% endif %}
+                        </header>
+                        <p class="list-description">{{ i.description }}</p>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+        {% endif %}
+
+        {% if login_session.user_id == todolist.user_id %}
+            <li class="list-item">
+                <a href="{{ url_for('new_list_item', todolist_id = todolist.id ) }}" class="list-label">
+                    <h3>Add New Item</h3>
+                    {% if todolist.user_id == login_session.user_id %}
+                        <div class="list-edit-options">
+                            <span class="list-edit-option icon-add"><span class="icon"></span>Add</span>
+                        </div>
+                    {% endif %}
+                </a>
+            </li>
+        {% endif %}
+
+    </ul>
+
+{% endblock %}

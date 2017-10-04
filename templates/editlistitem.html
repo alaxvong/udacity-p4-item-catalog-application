@@ -1,0 +1,40 @@
+{% extends "main.html" %}
+{% block content %}
+    {% include "header.html" %}
+
+    <h1 class="form-title">Edit List Item</h1>
+
+    <form action="#" method="post">
+
+        <label for="name">Name:</label>
+        <input type="text" maxlength="100" class="form-control" name="name" value="{{ item.name }}">
+
+        <label for="description">Description:</label>
+        <textarea class="form-control" maxlength="250" rows="3"
+                  name="description">{{ item.description }}</textarea>
+
+        <label for="priority">Priority:</label>
+
+        <input type="radio" name="priority" id="priority1" value="HighPriority"
+               {% if item.priority == 'HighPriority' %}checked{% endif %}>
+        <label class="radio-priority-label" for="priority1">High</label>
+
+        <input type="radio" name="priority" id="priority2" value="MedPriority"
+               {% if item.priority == 'MedPriority' %}checked{% endif %}>
+        <label class="radio-priority-label" for="priority2">Medium</label>
+
+        <input type="radio" name="priority" id="priority3" value="LowPriority"
+               {% if item.priority == 'LowPriority' %}checked{% endif %}>
+        <label class="radio-priority-label" for="priority3">Low</label>
+
+        <div class="button-set">
+            <button type="submit" class="button" id="submit"><span>Save</span></button>
+
+            <a href='{{ url_for('show_todolists') }}'>
+                <button class="button delete" type="button"><span>Cancel</span></button>
+            </a>
+        </div>
+
+    </form>
+
+{% endblock %}

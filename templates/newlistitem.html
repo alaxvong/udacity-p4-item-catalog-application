@@ -1,0 +1,31 @@
+{% extends "main.html" %}
+{% block content %}
+    {% include "header.html" %}
+
+    <h1 class="form-title">New List Item</h1>
+
+    <form action="#" method="post">
+
+        <label for="name">Name:</label>
+        <input type="text" maxlength="50" class="form-control" name="name" placeholder="Name of task">
+
+        <label for="description">Description:</label>
+        <textarea class="form-control" maxlength="250" rows="3" name="description"
+                  placeholder="Description of the task"></textarea>
+
+        <label for="priority">Priority:</label>
+
+        <input type="radio" name="priority" id="priority1" value="HighPriority">
+        <label class="radio-priority-label" for="priority1">High</label>
+
+        <input type="radio" name="priority" id="priority2" value="MedPriority">
+        <label class="radio-priority-label" for="priority2">Medium</label>
+
+        <input type="radio" name="priority" id="priority3" value="LowPriority">
+        <label class="radio-priority-label" for="priority3">Low</label>
+
+        <button type="submit" class="button" id="submit"><span>Create</span></button>
+
+    </form>
+
+{% endblock %}
